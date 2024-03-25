@@ -1,5 +1,7 @@
 # Test Assignment for Outreach.io
 
+_Max Maslenko &mdash; ECE_
+
 The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), so you know the drill better than me. However, I'm keeping the information below just in case.
 
 ## Available Scripts

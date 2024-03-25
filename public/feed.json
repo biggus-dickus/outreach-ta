@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "author": "You",
+      "contact": "Milton Romaguera",
+      "description": "And a more formal meeting.",
+      "timestamp": 1711032500188,
+      "type": "Meeting"
+    },
+    {
+      "author": "You",
+      "contact": "Milton Romaguera",
+      "description": "Then we had a follow-up phone call.",
+      "timestamp": 1710859755127,
+      "type": "Call"
+    },
+    {
+      "author": "You",
+      "contact": "Milton Romaguera",
+      "description": "We had coffee!",
+      "timestamp": 1710773388975,
+      "type": "Coffee"
+    },
+    {
+      "author": "You",
+      "contact": "Milton Romaguera",
+      "description": "A test note of message type!",
+      "timestamp": 1710082225115,
+      "type": "Message"
+    }
+  ]
+}

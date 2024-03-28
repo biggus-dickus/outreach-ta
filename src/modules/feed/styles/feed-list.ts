@@ -29,6 +29,7 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   display: flex;
+  gap: .75rem;
 
   &:not(:last-child) {
     margin-bottom: 1rem;
@@ -37,33 +38,34 @@ export const ListItem = styled.li`
 
 export const FeedInfo = styled.div`
   display: flex;
+  flex-basis: 48px;
+  flex-shrink: 0;
   align-items: center;
   align-self: baseline;
-  justify-content: space-around;
-  width: 10%;
-  padding-top: 0.5rem;
-  margin-right: 0.5rem;
+  padding-top: 0.6rem;
 `
 
 export const FeedCard = styled(Card)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  flex-grow: 1;
   gap: 0.75rem;
 
   ${IconButton} {
-    display: none;
+    visibility: hidden;
+    flex-shrink: 0;
   }
 
   &:hover ${IconButton} {
-    display: block;
+    visibility: visible;
   }
 `
 
 export const Time = styled.time`
   font-size: 10px;
   line-height: 1;
+  margin-right: auto;
 `
 
 export const Title = styled.p`

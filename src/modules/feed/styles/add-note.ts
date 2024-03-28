@@ -5,7 +5,6 @@ import { IconButton } from 'components/buttons'
 
 export const Form = styled.form`
   display: flex;
-  gap: 1rem;
   margin-bottom: 1rem;
 `
 
@@ -16,14 +15,15 @@ export const FormBody = styled(Card)`
 export const FormDecoration = styled(IconButton)`
   cursor: default;
   flex-shrink: 0;
+  flex-basis: 24px;
   margin-top: 10px;
-  margin-left: 20px;
-  transform: translateX(4px);
+  margin-left: 23px;
+  margin-right: 14px;
 `
 
 export const TextInput = styled.textarea`
   min-width: 100%;
-  max-width: 100%;
+  max-width: 442px;
   height: 2rem;
   min-height: 2rem;
   padding: 5px;

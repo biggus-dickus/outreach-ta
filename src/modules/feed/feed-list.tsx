@@ -1,3 +1,4 @@
+import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react'
 import type { TActivity } from 'types/entities'
 import { Trash as TrashIcon } from '@phosphor-icons/react'
 
@@ -18,8 +19,28 @@ const getWords = (activity: TActivity): [string, string] =>
 const getArticle = (activity: TActivity): string =>
   ['a', 'e', 'i', 'o', 'u'].includes(activity[0]) ? 'an' : 'a'
 
+const options: TActivity[] = ['Message', 'Call', 'Coffee', 'Beer', 'Meeting']
+
 export default function FeedList() {
-  const { data, loading, error, onItemAdd, onItemRemove } = useFeed()
+  const { data, loading, error, onItemAdd, onItemEdit, onItemRemove } = useFeed()
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const [editableTS, setEditableTS] = useState<number | null>(null)
+
+  const handleEdit = (e: SyntheticEvent) => {
+    onItemEdit(editableTS as number, textareaRef.current?.value || '')
+    setEditableTS(null)
+  }
+
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newType = e.target.value
+    const editedItem = data?.find((it) => it.timestamp === editableTS)
+    if (editedItem) {
+      onItemEdit(editableTS as number, editedItem.description, newType as TActivity)
+      setEditableTS(null)
+    }
+  }
 
   let content
   if (error) content = <S.Text role="alert">{error}</S.Text>
@@ -46,11 +67,25 @@ export default function FeedList() {
                 <S.FeedCard>
                   <div>
                     <S.Title>
-                      <mark>{author}</mark>{' '}
-                      {verb} {getArticle(type)} {activityMap[type]} {preposition}{' '}
-                      <mark>{contact}</mark>
+                      <mark>{author}</mark> {verb} {getArticle(type)} {activityMap[type]}{' '}
+                      {preposition} <mark>{contact}</mark>
                     </S.Title>
-                    <S.Description>{description}</S.Description>
+                    {timestamp === editableTS ? (
+                      <>
+                        <textarea
+                          ref={textareaRef}
+                          defaultValue={description}
+                          onBlur={handleEdit}
+                        />
+                        <select defaultValue={type} onChange={handleSelect}>
+                          {options.map((opt) => (
+                            <option key={opt} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                      </>
+                    ) : (
+                      <S.Description>{description}</S.Description>
+                    )}
                   </div>
 
                   <IconButton
@@ -61,6 +96,10 @@ export default function FeedList() {
                   >
                     <TrashIcon aria-hidden="true" />
                   </IconButton>
+
+                  <button type="button" onClick={() => setEditableTS(timestamp)}>
+                    Edit
+                  </button>
                 </S.FeedCard>
               </S.ListItem>
             )

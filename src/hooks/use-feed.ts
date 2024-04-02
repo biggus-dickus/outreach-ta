@@ -48,12 +48,27 @@ const useFeed = () => {
     [],
   )
 
+  const editItem = useCallback((ts: number, descr: string, type?: TFeedItem['type']) => {
+    const newData = (data || []).map((it) => {
+      if (it.timestamp === ts) {
+        return ({
+          ...it,
+          description: descr,
+          type: type || it.type,
+        })
+      }
+      return it
+    })
+    setData(newData)
+  }, [data])
+
   return {
     data,
     loading,
     error,
     onItemAdd: addItem,
     onItemRemove: removeItem,
+    onItemEdit: editItem,
   }
 }
 

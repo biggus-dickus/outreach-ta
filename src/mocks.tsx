@@ -10,7 +10,7 @@ export const withProviders = (Element: ElementType) => (
   </ThemeProvider>
 )
 
-export const mockFeed: TFeedItem[] = [
+export const feedFixture: TFeedItem[] = [
   {
     author: 'Ground Control',
     contact: 'Major Tom',

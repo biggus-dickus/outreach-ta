@@ -1,6 +1,7 @@
-import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react'
-import type { TActivity } from 'types/entities'
+import { ChangeEvent, useRef, useState } from 'react'
 import { Trash as TrashIcon } from '@phosphor-icons/react'
+
+import type { TActivity } from 'types/entities'
 
 import { activityMap, timeSince } from 'utils'
 import { activityIconMap } from 'components/icons'
@@ -28,18 +29,14 @@ export default function FeedList() {
 
   const [editableTS, setEditableTS] = useState<number | null>(null)
 
-  const handleEdit = (e: SyntheticEvent) => {
+  const handleEdit = () => {
     onItemEdit(editableTS as number, textareaRef.current?.value || '')
     setEditableTS(null)
   }
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newType = e.target.value
-    const editedItem = data?.find((it) => it.timestamp === editableTS)
-    if (editedItem) {
-      onItemEdit(editableTS as number, editedItem.description, newType as TActivity)
-      setEditableTS(null)
-    }
+    onItemEdit(editableTS as number, textareaRef.current?.value || '', e.target.value as TActivity)
+    setEditableTS(null)
   }
 
   let content

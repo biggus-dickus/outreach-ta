@@ -48,18 +48,21 @@ const useFeed = () => {
     [],
   )
 
-  const editItem = useCallback((ts: number, descr: string, type?: TFeedItem['type']) => {
-    const newData = (data || []).map((it) => {
-      if (it.timestamp === ts) {
-        return ({
-          ...it,
-          description: descr,
-          type: type || it.type,
-        })
+  const editItem = useCallback((ts: number, text: string, type?: TFeedItem['type']) => {
+    if (!data || !data.length) return
+    const itemIndex = data.findIndex((it) => it.timestamp === ts)
+
+    if (itemIndex && itemIndex >= 0) {
+      const updatedItem = {
+        ...data[itemIndex],
+        ...type && { type },
+        description: text,
       }
-      return it
-    })
-    setData(newData)
+
+      const newData = [...data]
+      newData.splice(itemIndex, 1, updatedItem)
+      setData(newData)
+    }
   }, [data])
 
   return {
